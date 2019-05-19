@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='E:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.runs/impl_1'
+HD_PWD='E:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

@@ -44,6 +44,7 @@ proc step_failed { step } {
 
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
+set_msg_config -id {HDL-1065} -limit 10000
 
 start_step init_design
 set ACTIVE_STEP init_design
@@ -53,15 +54,28 @@ set rc [catch {
   set_property board_part em.avnet.com:zed:part0:1.3 [current_project]
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir E:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.cache/wt [current_project]
-  set_property parent.project_path E:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.xpr [current_project]
-  set_property ip_output_repo E:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.cache/ip [current_project]
+  set_property webtalk.parent_dir E:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.cache/wt [current_project]
+  set_property parent.project_path E:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.xpr [current_project]
+  set_property ip_repo_paths E:/M10702114/ntust_HSCodesign_et5342701/fpga/ip_repo/controlanddisplayIP_1.0 [current_project]
+  set_property ip_output_repo E:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
-  add_files -quiet E:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.runs/synth_1/system_wrapper.dcp
-  add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.dcp
-  set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.dcp]
-  read_xdc -ref system_processing_system7_0_0 -cells inst e:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xdc
-  set_property processing_order EARLY [get_files e:/M10702114/ntust_HSCodesign_et5342701/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xdc]
+  set_property XPM_LIBRARIES XPM_CDC [current_project]
+  add_files -quiet E:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.runs/synth_1/system_wrapper.dcp
+  add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.dcp
+  set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.dcp]
+  add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_controlanddisplayIP_0_1/system_controlanddisplayIP_0_1.dcp
+  set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_controlanddisplayIP_0_1/system_controlanddisplayIP_0_1.dcp]
+  add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.dcp
+  set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.dcp]
+  add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_auto_pc_0/system_auto_pc_0.dcp
+  set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_auto_pc_0/system_auto_pc_0.dcp]
+  read_xdc -ref system_processing_system7_0_0 -cells inst e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xdc
+  set_property processing_order EARLY [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xdc]
+  read_xdc -prop_thru_buffers -ref system_rst_ps7_0_100M_0 -cells U0 e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0_board.xdc
+  set_property processing_order EARLY [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0_board.xdc]
+  read_xdc -ref system_rst_ps7_0_100M_0 -cells U0 e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.xdc
+  set_property processing_order EARLY [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.xdc]
+  read_xdc E:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/constrs_1/new/Controller.xdc
   link_design -top system_wrapper -part xc7z020clg484-1
   write_hwdef -file system_wrapper.hwdef
   close_msg_db -file init_design.pb
@@ -138,6 +152,7 @@ start_step write_bitstream
 set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
+  set_property XPM_LIBRARIES XPM_CDC [current_project]
   catch { write_mem_info -force system_wrapper.mmi }
   write_bitstream -force -no_partial_bitfile system_wrapper.bit 
   catch { write_sysdef -hwdef system_wrapper.hwdef -bitfile system_wrapper.bit -meminfo system_wrapper.mmi -file system_wrapper.sysdef }

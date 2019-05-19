@@ -158,6 +158,12 @@ proc create_root_design { parentCell } {
   set FIXED_IO [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 FIXED_IO ]
 
   # Create ports
+  set BUTTON [ create_bd_port -dir I -from 7 -to 0 BUTTON ]
+  set LED [ create_bd_port -dir O -from 7 -to 0 LED ]
+  set SW [ create_bd_port -dir I -from 7 -to 0 SW ]
+
+  # Create instance: controlanddisplayIP_0, and set properties
+  set controlanddisplayIP_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:controlanddisplayIP:1.0 controlanddisplayIP_0 ]
 
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
@@ -1433,14 +1439,32 @@ CONFIG.PCW_WDT_PERIPHERAL_FREQMHZ.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_WDT_WDT_IO.VALUE_SRC {DEFAULT} \
  ] $processing_system7_0
 
+  # Create instance: ps7_0_axi_periph, and set properties
+  set ps7_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 ps7_0_axi_periph ]
+  set_property -dict [ list \
+CONFIG.NUM_MI {1} \
+ ] $ps7_0_axi_periph
+
+  # Create instance: rst_ps7_0_100M, and set properties
+  set rst_ps7_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps7_0_100M ]
+
   # Create interface connections
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
+  connect_bd_intf_net -intf_net processing_system7_0_M_AXI_GP0 [get_bd_intf_pins processing_system7_0/M_AXI_GP0] [get_bd_intf_pins ps7_0_axi_periph/S00_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M00_AXI [get_bd_intf_pins controlanddisplayIP_0/S00_AXI] [get_bd_intf_pins ps7_0_axi_periph/M00_AXI]
 
   # Create port connections
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net BUTTON_1 [get_bd_ports BUTTON] [get_bd_pins controlanddisplayIP_0/BUTTON]
+  connect_bd_net -net SW_1 [get_bd_ports SW] [get_bd_pins controlanddisplayIP_0/SW]
+  connect_bd_net -net controlanddisplayIP_0_LED [get_bd_ports LED] [get_bd_pins controlanddisplayIP_0/LED]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins controlanddisplayIP_0/s00_axi_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_100M/slowest_sync_clk]
+  connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_100M/ext_reset_in]
+  connect_bd_net -net rst_ps7_0_100M_interconnect_aresetn [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins rst_ps7_0_100M/interconnect_aresetn]
+  connect_bd_net -net rst_ps7_0_100M_peripheral_aresetn [get_bd_pins controlanddisplayIP_0/s00_axi_aresetn] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_100M/peripheral_aresetn]
 
   # Create address segments
+  create_bd_addr_seg -range 0x00010000 -offset 0x43C00000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs controlanddisplayIP_0/S00_AXI/S00_AXI_reg] SEG_controlanddisplayIP_0_S00_AXI_reg
 
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
@@ -1448,11 +1472,25 @@ CONFIG.PCW_WDT_WDT_IO.VALUE_SRC {DEFAULT} \
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -y -90 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y -70 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 1 -y -10 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 1 1 NJ
-preplace netloc processing_system7_0_FIXED_IO 1 1 1 NJ
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 2 0 120 380
-levelinfo -pg 1 -20 190 400 -top -130 -bot 160
+preplace portBus LED -pg 1 -y 30 -defaultsOSRD
+preplace portBus BUTTON -pg 1 -y 30 -defaultsOSRD
+preplace portBus SW -pg 1 -y 10 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -y -40 -defaultsOSRD
+preplace inst controlanddisplayIP_0 -pg 1 -lvl 1 -y 30 -defaultsOSRD
+preplace inst rst_ps7_0_100M -pg 1 -lvl 3 -y -80 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 2 -y -10 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 2 3 630J 80 NJ 80 1270J
+preplace netloc processing_system7_0_M_AXI_GP0 1 2 2 640J 10 980
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 0 4 0 -150 NJ -150 670J 30 970
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 2 1 660
+preplace netloc controlanddisplayIP_0_LED 1 1 4 230J 120 NJ 120 NJ 120 1280J
+preplace netloc BUTTON_1 1 0 1 N
+preplace netloc processing_system7_0_FIXED_IO 1 2 3 650J 20 960J -160 1280J
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 20 -140 230 -140 620 40 990
+preplace netloc ps7_0_axi_periph_M00_AXI 1 0 5 10 130 NJ 130 NJ 130 NJ 130 1260
+preplace netloc SW_1 1 0 1 N
+preplace netloc rst_ps7_0_100M_interconnect_aresetn 1 3 1 N
+levelinfo -pg 1 -20 130 430 820 1130 1380 -top -170 -bot 330
 ",
 }
 

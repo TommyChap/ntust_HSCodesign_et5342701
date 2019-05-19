@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.4 (win64) Build 1733598 Wed Dec 14 22:35:39 MST 2016
-//Date        : Tue May 14 16:18:26 2019
+//Date        : Sun May 19 12:32:28 2019
 //Host        : IB712-PC04 running 64-bit major release  (build 9200)
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -10,7 +10,8 @@
 `timescale 1 ps / 1 ps
 
 module system_wrapper
-   (DDR_addr,
+   (BUTTON,
+    DDR_addr,
     DDR_ba,
     DDR_cas_n,
     DDR_ck_n,
@@ -30,7 +31,10 @@ module system_wrapper
     FIXED_IO_mio,
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
-    FIXED_IO_ps_srstb);
+    FIXED_IO_ps_srstb,
+    LED,
+    SW);
+  input [7:0]BUTTON;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -52,7 +56,10 @@ module system_wrapper
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
+  output [7:0]LED;
+  input [7:0]SW;
 
+  wire [7:0]BUTTON;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
   wire DDR_cas_n;
@@ -74,9 +81,12 @@ module system_wrapper
   wire FIXED_IO_ps_clk;
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
+  wire [7:0]LED;
+  wire [7:0]SW;
 
   system system_i
-       (.DDR_addr(DDR_addr),
+       (.BUTTON(BUTTON),
+        .DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
         .DDR_cas_n(DDR_cas_n),
         .DDR_ck_n(DDR_ck_n),
@@ -96,5 +106,7 @@ module system_wrapper
         .FIXED_IO_mio(FIXED_IO_mio),
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
-        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb));
+        .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
+        .LED(LED),
+        .SW(SW));
 endmodule

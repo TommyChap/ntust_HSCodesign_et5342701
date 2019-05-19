@@ -1,0 +1,16 @@
+
+
+/***************************** Include Files *******************************/
+#include "myGPIO.h"
+#include "xparameters.h"
+
+/************************** Function Definitions ***************************/
+
+u32 mygpio_read(void){
+	//implement your driver
+	return MYGPIO_mReadReg(XPAR_CONTROLANDDISPLAYIP_0_S00_AXI_BASEADDR, CONTROLANDDISPLAYIP_S00_AXI_SLV_REG0_OFFSET);
+}
+void mygpio_write(u32 data){
+	//implement your driver
+	MYGPIO_mWriteReg(XPAR_CONTROLANDDISPLAYIP_0_S00_AXI_BASEADDR, CONTROLANDDISPLAYIP_S00_AXI_SLV_REG0_OFFSET, data);
+}

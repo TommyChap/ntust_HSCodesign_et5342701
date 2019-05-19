@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2016.4 (win64) Build 1733598 Wed Dec 14 22:35:39 MST 2016
-| Date         : Tue May 14 16:21:08 2019
+| Date         : Sun May 19 12:38:09 2019
 | Host         : IB712-PC04 running 64-bit major release  (build 9200)
 | Command      : report_drc -file system_wrapper_drc_routed.rpt -pb system_wrapper_drc_routed.pb -rpx system_wrapper_drc_routed.rpx
 | Design       : system_wrapper
@@ -24,12 +24,18 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 0
-+------+----------+-------------+------------+
-| Rule | Severity | Description | Violations |
-+------+----------+-------------+------------+
-+------+----------+-------------+------------+
+             Violations found: 1
++--------+----------+------------------------------------------------+------------+
+| Rule   | Severity | Description                                    | Violations |
++--------+----------+------------------------------------------------+------------+
+| PLIO-3 | Warning  | Placement Constraints Check for IO constraints | 1          |
++--------+----------+------------------------------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
+PLIO-3#1 Warning
+Placement Constraints Check for IO constraints  
+Partially locked IO Bus is found. Following components of the IO Bus BUTTON[7:0] are not locked:  BUTTON[6] BUTTON[1] BUTTON[0]
+Related violations: <none>
+
 
