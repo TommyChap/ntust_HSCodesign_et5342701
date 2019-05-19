@@ -9747,7 +9747,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue May 14 08:18:41 UTC 2019</spirit:value>
+            <spirit:value>Sun May 19 07:39:09 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>boundaryCRC</spirit:name>
@@ -9759,7 +9759,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRC</spirit:name>
-            <spirit:value>6f69fd7d</spirit:value>
+            <spirit:value>3bd97237</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRCversion</spirit:name>
@@ -9778,7 +9778,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue May 14 08:18:41 UTC 2019</spirit:value>
+            <spirit:value>Sun May 19 07:39:09 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>boundaryCRC</spirit:name>
@@ -9790,7 +9790,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRC</spirit:name>
-            <spirit:value>6f69fd7d</spirit:value>
+            <spirit:value>3bd97237</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRCversion</spirit:name>
@@ -9816,7 +9816,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRC</spirit:name>
-            <spirit:value>2465ad9d</spirit:value>
+            <spirit:value>893d6d9d</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRCversion</spirit:name>
@@ -9834,7 +9834,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue May 14 08:18:41 UTC 2019</spirit:value>
+            <spirit:value>Sun May 19 07:39:09 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>boundaryCRC</spirit:name>
@@ -9846,7 +9846,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRC</spirit:name>
-            <spirit:value>2465ad9d</spirit:value>
+            <spirit:value>893d6d9d</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRCversion</spirit:name>
@@ -9864,7 +9864,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue May 14 08:18:41 UTC 2019</spirit:value>
+            <spirit:value>Sun May 19 07:39:09 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>boundaryCRC</spirit:name>
@@ -9876,7 +9876,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRC</spirit:name>
-            <spirit:value>2465ad9d</spirit:value>
+            <spirit:value>893d6d9d</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRCversion</spirit:name>
@@ -9894,7 +9894,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Tue May 14 08:19:22 UTC 2019</spirit:value>
+            <spirit:value>Sun May 19 07:39:56 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>boundaryCRC</spirit:name>
@@ -9906,7 +9906,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRC</spirit:name>
-            <spirit:value>6f69fd7d</spirit:value>
+            <spirit:value>3bd97237</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>customizationCRCversion</spirit:name>
@@ -28026,7 +28026,7 @@
     <spirit:parameter>
       <spirit:name>PCW_QSPI_PERIPHERAL_FREQMHZ</spirit:name>
       <spirit:displayName>PCW QSPI PERIPHERAL FREQMHZ</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PCW_QSPI_PERIPHERAL_FREQMHZ" spirit:order="23700" spirit:minimum="10.000000" spirit:maximum="200.000000">200.000000</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PCW_QSPI_PERIPHERAL_FREQMHZ" spirit:order="23700" spirit:minimum="10.000000" spirit:maximum="200.000000">200</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PCW_SMC_PERIPHERAL_FREQMHZ</spirit:name>
@@ -28253,7 +28253,7 @@
     <spirit:parameter>
       <spirit:name>PCW_FPGA2_PERIPHERAL_FREQMHZ</spirit:name>
       <spirit:displayName>PCW FPGA2 PERIPHERAL FREQMHZ</spirit:displayName>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PCW_FPGA2_PERIPHERAL_FREQMHZ" spirit:order="26200" spirit:minimum="0.100000" spirit:maximum="250.000000">50.000000</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.PCW_FPGA2_PERIPHERAL_FREQMHZ" spirit:order="26200" spirit:minimum="0.100000" spirit:maximum="250.000000">50</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>PCW_FPGA3_PERIPHERAL_FREQMHZ</spirit:name>

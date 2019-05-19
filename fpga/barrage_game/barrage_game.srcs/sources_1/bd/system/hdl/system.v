@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.4 (win64) Build 1733598 Wed Dec 14 22:35:39 MST 2016
-//Date        : Sun May 19 12:32:28 2019
+//Date        : Sun May 19 19:33:59 2019
 //Host        : IB712-PC04 running 64-bit major release  (build 9200)
 //Command     : generate_target system.bd
 //Design      : system
@@ -314,7 +314,7 @@ module s00_couplers_imp_11SE3QO
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=6,numReposBlks=4,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=1,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=6,numReposBlks=4,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=9,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (BUTTON,
     DDR_addr,
@@ -340,7 +340,7 @@ module system
     FIXED_IO_ps_srstb,
     LED,
     SW);
-  input [7:0]BUTTON;
+  input [4:0]BUTTON;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -365,7 +365,7 @@ module system
   output [7:0]LED;
   input [7:0]SW;
 
-  wire [7:0]BUTTON_1;
+  wire [4:0]BUTTON_1;
   wire [7:0]SW_1;
   wire [7:0]controlanddisplayIP_0_LED;
   wire [14:0]processing_system7_0_DDR_ADDR;
@@ -451,10 +451,10 @@ module system
   wire [0:0]rst_ps7_0_100M_interconnect_aresetn;
   wire [0:0]rst_ps7_0_100M_peripheral_aresetn;
 
-  assign BUTTON_1 = BUTTON[7:0];
+  assign BUTTON_1 = BUTTON[4:0];
   assign LED[7:0] = controlanddisplayIP_0_LED;
   assign SW_1 = SW[7:0];
-  system_controlanddisplayIP_0_1 controlanddisplayIP_0
+  system_controlanddisplayIP_0_0 controlanddisplayIP_0
        (.BUTTON(BUTTON_1),
         .LED(controlanddisplayIP_0_LED),
         .SW(SW_1),

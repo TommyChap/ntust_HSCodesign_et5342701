@@ -76,7 +76,6 @@
  *
  */
 XStatus MYGPIO_Reg_SelfTest(void * baseaddr_p);
-
 u32 mygpio_read(u32 select);
 void mygpio_write(u32 data, u32 select);
 

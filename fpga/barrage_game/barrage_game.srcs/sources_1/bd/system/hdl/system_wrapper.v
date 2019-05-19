@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.4 (win64) Build 1733598 Wed Dec 14 22:35:39 MST 2016
-//Date        : Sun May 19 12:32:28 2019
+//Date        : Sun May 19 19:34:00 2019
 //Host        : IB712-PC04 running 64-bit major release  (build 9200)
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -34,7 +34,7 @@ module system_wrapper
     FIXED_IO_ps_srstb,
     LED,
     SW);
-  input [7:0]BUTTON;
+  input [4:0]BUTTON;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -59,7 +59,7 @@ module system_wrapper
   output [7:0]LED;
   input [7:0]SW;
 
-  wire [7:0]BUTTON;
+  wire [4:0]BUTTON;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
   wire DDR_cas_n;

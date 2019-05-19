@@ -42,6 +42,7 @@ proc step_failed { step } {
   close $ch
 }
 
+set_msg_config -id {Common 17-41} -limit 10000000
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
 set_msg_config -id {HDL-1065} -limit 10000
@@ -63,10 +64,10 @@ set rc [catch {
   add_files -quiet E:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.runs/synth_1/system_wrapper.dcp
   add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.dcp
   set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.dcp]
-  add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_controlanddisplayIP_0_1/system_controlanddisplayIP_0_1.dcp
-  set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_controlanddisplayIP_0_1/system_controlanddisplayIP_0_1.dcp]
   add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.dcp
   set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.dcp]
+  add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_controlanddisplayIP_0_0/system_controlanddisplayIP_0_0.dcp
+  set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_controlanddisplayIP_0_0/system_controlanddisplayIP_0_0.dcp]
   add_files -quiet e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_auto_pc_0/system_auto_pc_0.dcp
   set_property netlist_only true [get_files e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_auto_pc_0/system_auto_pc_0.dcp]
   read_xdc -ref system_processing_system7_0_0 -cells inst e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xdc

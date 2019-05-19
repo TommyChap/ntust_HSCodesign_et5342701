@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2016.4 (win64) Build 1733598 Wed Dec 14 22:35:39 MST 2016
 -- Date        : Sun May 19 12:35:50 2019
 -- Host        : IB712-PC04 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               e:/M10702114/ntust_HSCodesign_et5342701/fpga/barrage_game/barrage_game.srcs/sources_1/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top system_rst_ps7_0_100M_0 -prefix
+--               system_rst_ps7_0_100M_0_ system_rst_ps7_0_100M_0_stub.vhdl
 -- Design      : system_rst_ps7_0_100M_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z020clg484-1

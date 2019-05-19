@@ -158,12 +158,12 @@ proc create_root_design { parentCell } {
   set FIXED_IO [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 FIXED_IO ]
 
   # Create ports
-  set BUTTON [ create_bd_port -dir I -from 7 -to 0 BUTTON ]
+  set BUTTON [ create_bd_port -dir I -from 4 -to 0 BUTTON ]
   set LED [ create_bd_port -dir O -from 7 -to 0 LED ]
   set SW [ create_bd_port -dir I -from 7 -to 0 SW ]
 
   # Create instance: controlanddisplayIP_0, and set properties
-  set controlanddisplayIP_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:controlanddisplayIP:1.0 controlanddisplayIP_0 ]
+  set controlanddisplayIP_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:controlanddisplayIP:1.1 controlanddisplayIP_0 ]
 
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
@@ -283,7 +283,7 @@ CONFIG.PCW_FCLK_CLK2_BUF {FALSE} \
 CONFIG.PCW_FCLK_CLK3_BUF {FALSE} \
 CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100.000000} \
 CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {150.000000} \
-CONFIG.PCW_FPGA2_PERIPHERAL_FREQMHZ {50.000000} \
+CONFIG.PCW_FPGA2_PERIPHERAL_FREQMHZ {50} \
 CONFIG.PCW_FPGA3_PERIPHERAL_FREQMHZ {50} \
 CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
 CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {0} \
@@ -608,7 +608,7 @@ CONFIG.PCW_QSPI_GRP_SS1_IO {<Select>} \
 CONFIG.PCW_QSPI_PERIPHERAL_CLKSRC {IO PLL} \
 CONFIG.PCW_QSPI_PERIPHERAL_DIVISOR0 {5} \
 CONFIG.PCW_QSPI_PERIPHERAL_ENABLE {1} \
-CONFIG.PCW_QSPI_PERIPHERAL_FREQMHZ {200.000000} \
+CONFIG.PCW_QSPI_PERIPHERAL_FREQMHZ {200} \
 CONFIG.PCW_QSPI_QSPI_IO {MIO 1 .. 6} \
 CONFIG.PCW_SD0_GRP_CD_ENABLE {1} \
 CONFIG.PCW_SD0_GRP_CD_IO {MIO 47} \
@@ -1472,25 +1472,25 @@ CONFIG.NUM_MI {1} \
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -y -90 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y -70 -defaultsOSRD
-preplace portBus LED -pg 1 -y 30 -defaultsOSRD
-preplace portBus BUTTON -pg 1 -y 30 -defaultsOSRD
-preplace portBus SW -pg 1 -y 10 -defaultsOSRD
-preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -y -40 -defaultsOSRD
-preplace inst controlanddisplayIP_0 -pg 1 -lvl 1 -y 30 -defaultsOSRD
-preplace inst rst_ps7_0_100M -pg 1 -lvl 3 -y -80 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 2 -y -10 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 2 3 630J 80 NJ 80 1270J
-preplace netloc processing_system7_0_M_AXI_GP0 1 2 2 640J 10 980
-preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 0 4 0 -150 NJ -150 670J 30 970
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 2 1 660
-preplace netloc controlanddisplayIP_0_LED 1 1 4 230J 120 NJ 120 NJ 120 1280J
-preplace netloc BUTTON_1 1 0 1 N
-preplace netloc processing_system7_0_FIXED_IO 1 2 3 650J 20 960J -160 1280J
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 20 -140 230 -140 620 40 990
-preplace netloc ps7_0_axi_periph_M00_AXI 1 0 5 10 130 NJ 130 NJ 130 NJ 130 1260
-preplace netloc SW_1 1 0 1 N
-preplace netloc rst_ps7_0_100M_interconnect_aresetn 1 3 1 N
-levelinfo -pg 1 -20 130 430 820 1130 1380 -top -170 -bot 330
+preplace portBus LED -pg 1 -y 0 -defaultsOSRD
+preplace portBus SW -pg 1 -y -20 -defaultsOSRD
+preplace portBus BUTTON -pg 1 -y 0 -defaultsOSRD
+preplace inst controlanddisplayIP_0 -pg 1 -lvl 2 -y 0 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 3 -y -210 -defaultsOSRD
+preplace inst rst_ps7_0_100M -pg 1 -lvl 2 -y -250 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 1 -y -10 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 1 3 NJ -90 NJ -90 NJ
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 2 450J -340 780J
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 1 2 490 -150 770
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 1 470
+preplace netloc controlanddisplayIP_0_LED 1 2 2 NJ 0 NJ
+preplace netloc BUTTON_1 1 0 2 30J -140 420J
+preplace netloc processing_system7_0_FIXED_IO 1 1 3 460J -110 770J -70 NJ
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 3 40 -290 440 -160 780
+preplace netloc ps7_0_axi_periph_M00_AXI 1 1 3 480 -350 NJ -350 1060
+preplace netloc SW_1 1 0 2 20J -160 430J
+preplace netloc rst_ps7_0_100M_interconnect_aresetn 1 2 1 N
+levelinfo -pg 1 0 230 630 930 1090 -top -360 -bot 520
 ",
 }
 

@@ -1,0 +1,16 @@
+Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2016.4 (win64) Build 1733598 Wed Dec 14 22:35:39 MST 2016
+| Date         : Sun May 19 15:45:09 2019
+| Host         : IB712-PC04 running 64-bit major release  (build 9200)
+| Command      : upgrade_ip
+| Device       : xc7z020clg484-1
+------------------------------------------------------------------------------------
+
+Upgrade Log for IP 'system_controlanddisplayIP_0_1'
+
+1. Summary
+----------
+
+SUCCESS in the upgrade of system_controlanddisplayIP_0_1 (xilinx.com:user:controlanddisplayIP:1.0) from (Rev. 5) to (Rev. 7)
+
