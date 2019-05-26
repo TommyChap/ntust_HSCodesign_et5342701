@@ -3,17 +3,20 @@ import pygame
 from pygame.locals import *
 import time
 import random
+from ctypes import *
 
 # 2 – Initialize the game
 pygame.init()
 width, height = 640, 480
 screen = pygame.display.set_mode((width, height))
-keys = [False, False, False, False]
+keys = [False, False, False, False, False]
 playerpos = [0, 0]
 acc = [0, 0]
 arrows = []
 badmans = []
 hp = 8
+lib = CDLL("./libmygpio.so")
+lib.init()
 
 # Time status
 time_last = (time.time())
@@ -36,7 +39,8 @@ while start_flag:
         time_change = True
     else:
         time_change = False
-    
+    lib.Write(hp, 0)
+
     # 5 – Clear the screen before drawing it again
     screen.fill(0)
 
@@ -95,6 +99,7 @@ while start_flag:
     pygame.display.flip()
 
     # 8 - loop through the events
+    '''
     for event in pygame.event.get():
         # check if the event is the X button 
         if event.type == pygame.KEYDOWN:
@@ -105,9 +110,9 @@ while start_flag:
             elif event.key == K_s:
                 keys[2] = True
             elif event.key == K_d:
-                keys[3]=True
+                keys[3] = True
             if event.key == K_z:
-                acc[1]+=1
+                acc[1] += 1
                 arrows.append([playerpos[0] + 130, playerpos[1] + 86])
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
@@ -118,7 +123,15 @@ while start_flag:
                 keys[2] = False
             elif event.key == pygame.K_d:
                 keys[3] = False
-        
+    '''
+    # 8 - Read Button
+    button_value = lib.Read(1)
+    key[0] = button & 16
+    key[1] = button & 8
+    key[2] = button & 4
+    key[3] = button & 2
+    key[4] = button & 1
+
     # 9 - Move Player
     if keys[0]:
         playerpos[1] -= 5
@@ -128,6 +141,9 @@ while start_flag:
         playerpos[0] -= 5
     elif keys[3]:
         playerpos[0] += 5
+    if key[4]:
+        acc[1] += 1
+        arrows.append([playerpos[0] + 130, playerpos[1] + 86])
     
     if hp <= 0:
         start_flag = 0
