@@ -24,11 +24,11 @@ badman_make_time = time_last
 time_change = False
 
 # 3 – Load images
-player = pygame.image.load("main_character.png")
-bg = pygame.image.load("bg.png")
-arrow = pygame.image.load("bullet.png")
-badman = pygame.image.load("badman.png")
-gameover = pygame.image.load("gameover.png")
+player = pygame.image.load("img/main_character.png")
+bg = pygame.image.load("img/bg.png")
+arrow = pygame.image.load("img/bullet.png")
+badman = pygame.image.load("img/badman.png")
+gameover = pygame.image.load("img/gameover.png")
 
 start_flag = 1
 # 4 – Keep looping through
@@ -125,12 +125,12 @@ while start_flag:
                 keys[3] = False
     '''
     # 8 - Read Button
-    button_value = lib.Read(1)
-    key[0] = button & 16
-    key[1] = button & 8
-    key[2] = button & 4
-    key[3] = button & 2
-    key[4] = button & 1
+    button = lib.Read(1)
+    keys[0] = button & 16    # up
+    keys[1] = button & 4     # left
+    keys[2] = button & 8     # down
+    keys[3] = button & 2     # right
+    keys[4] = button & 1     # fire
 
     # 9 - Move Player
     if keys[0]:
@@ -141,7 +141,7 @@ while start_flag:
         playerpos[0] -= 5
     elif keys[3]:
         playerpos[0] += 5
-    if key[4]:
+    if keys[4]:
         acc[1] += 1
         arrows.append([playerpos[0] + 130, playerpos[1] + 86])
     
