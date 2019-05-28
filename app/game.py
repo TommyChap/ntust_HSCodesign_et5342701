@@ -39,7 +39,7 @@ while start_flag:
         time_change = True
     else:
         time_change = False
-    lib.Write((1 << (hp - 1)), 0)
+    lib.Write((0xff >> (8 - hp)), 0)
 
     # 5 – Clear the screen before drawing it again
     screen.fill(0)
