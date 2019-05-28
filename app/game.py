@@ -69,7 +69,7 @@ while start_flag:
             badmans[index][0] -= 0.5 * monster[2]
         if monster[0] <= 0 :
             if monster[2] < 3:
-				hp -= 1
+                hp -= 1
             badmans.pop(index)
         index += 1
         
@@ -90,20 +90,20 @@ while start_flag:
     # Kill to badman
     index_bullet = 0
     for bullet in arrows:
-      index_monster = 0
-      for monster in badmans:
-          if (monster[0] - bullet[0]) > -3 and (monster[0] - bullet[0]) < 0 and (monster[1] - bullet[1]) > -100 and (monster[1] - bullet[1]) <= 0:
+        index_monster = 0
+        for monster in badmans:
+            if (monster[0] - bullet[0]) > -3 and (monster[0] - bullet[0]) < 0 and (monster[1] - bullet[1]) > -100 and (monster[1] - bullet[1]) <= 0:
                 if monster[2] == bullet[2]:
-				    arrows.pop(index_bullet)
-				    badmans.pop(index_monster)
-				    if monster[2] < 3:
-				        acc[0] += 1
-				if monster[2] == 3:
-					arrows.pop(index_bullet)
-				    badmans.pop(index_monster)
-				    acc[0] -= 10
-          index_monster += 1
-      index_bullet += 1
+                    arrows.pop(index_bullet)
+                    badmans.pop(index_monster)
+                    if monster[2] < 3:
+                        acc[0] += 1
+                if monster[2] == 3:
+                    arrows.pop(index_bullet)
+                    badmans.pop(index_monster)
+                    acc[0] -= 10
+            index_monster += 1
+        index_bullet += 1
     
     # 7 – Update the screen
     pygame.display.flip()
@@ -141,11 +141,11 @@ while start_flag:
     keys[2] = button & 8     # down
     keys[3] = button & 2     # right
     keys[4] = button & 1     # fire
-	
-	# 8-1 - Select Level and arrow
-	switch = lib.Read(0)
-	level = switch & 3	# 2's LSB
-	arrow_select = switch & 0xC0 # 2's MSB
+
+    # 8-1 - Select Level and arrow
+    switch = lib.Read(0)
+    level = switch & 3    # 2's LSB
+    arrow_select = (switch & 0xC0) >> 6 # 2's MSB
 
     # 9 - Move Player
     if keys[0]:
