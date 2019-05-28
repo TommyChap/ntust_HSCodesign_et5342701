@@ -15,6 +15,8 @@ acc = [0, 0]
 arrows = []
 badmans = []
 hp = 8
+level = 0;
+arrow_select = 0;
 lib = CDLL("./libmygpio.so")
 lib.init()
 
@@ -26,8 +28,9 @@ time_change = False
 # 3 – Load images
 player = pygame.image.load("img/main_character.png")
 bg = pygame.image.load("img/bg.png")
-arrow = pygame.image.load("img/bullet.png")
-badman = pygame.image.load("img/badman.png")
+arrow = [pygame.image.load("img/bullet.png"), pygame.image.load("img/bullet2.png"), pygame.image.load("img/bullet3.png")]
+goodman = pygame.image.load("img/goodman.png")
+badman = [pygame.image.load("img/badman.png"), pygame.image.load("img/badman2.png"), pygame.image.load("img/badman3.png"), goodman]
 gameover = pygame.image.load("img/gameover.png")
 
 start_flag = 1
@@ -51,7 +54,7 @@ while start_flag:
     # 6-1 - Draw arrows
     index = 0
     for bullet in arrows:
-        screen.blit(arrow, bullet)
+        screen.blit(arrow[bullet[2]], bullet)
         if time_change:
             arrows[index][0] += 0.5
         if bullet[0] > 640:
@@ -61,18 +64,19 @@ while start_flag:
     # 6-2 - Draw badmans
     index = 0
     for monster in badmans:
-        screen.blit(badman, monster)
+        screen.blit(badman[monster[2]], monster)
         if time_change:
-            badmans[index][0] -= 0.5
+            badmans[index][0] -= 0.5 * monster[2]
         if monster[0] <= 0 :
-            hp -= 1
+            if monster[2] < 3:
+				hp -= 1
             badmans.pop(index)
         index += 1
         
     # 6-2-1 - Make badman
     if(time_now - badman_make_time > 5):
       badman_make_time = time_now
-      badmans.append([640, random.randint(0, 380)])
+      badmans.append([640, random.randint(0, 380), random.randint(0, level)])
     
     # 6-3 - Draw Score
     pygame.font.init()
@@ -89,9 +93,15 @@ while start_flag:
       index_monster = 0
       for monster in badmans:
           if (monster[0] - bullet[0]) > -3 and (monster[0] - bullet[0]) < 0 and (monster[1] - bullet[1]) > -100 and (monster[1] - bullet[1]) <= 0:
-              arrows.pop(index_bullet)
-              badmans.pop(index_monster)
-              acc[0] += 1
+                if monster[2] == bullet[2]:
+				    arrows.pop(index_bullet)
+				    badmans.pop(index_monster)
+				    if monster[2] < 3:
+				        acc[0] += 1
+				if monster[2] == 3:
+					arrows.pop(index_bullet)
+				    badmans.pop(index_monster)
+				    acc[0] -= 10
           index_monster += 1
       index_bullet += 1
     
@@ -131,6 +141,11 @@ while start_flag:
     keys[2] = button & 8     # down
     keys[3] = button & 2     # right
     keys[4] = button & 1     # fire
+	
+	# 8-1 - Select Level and arrow
+	switch = lib.Read(0)
+	level = switch & 3	# 2's LSB
+	arrow_select = switch & 0xC0 # 2's MSB
 
     # 9 - Move Player
     if keys[0]:
@@ -143,7 +158,7 @@ while start_flag:
         playerpos[0] += 5
     if keys[4]:
         acc[1] += 1
-        arrows.append([playerpos[0] + 130, playerpos[1] + 86])
+        arrows.append([playerpos[0] + 130, playerpos[1] + 86, arrow_select])
     
     if hp <= 0:
         start_flag = 0
