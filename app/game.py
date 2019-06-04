@@ -5,6 +5,11 @@ import time
 import random
 from ctypes import *
 
+class cell:
+    def __init__(self, pos, type):
+        self.pos = pos
+        self.type = type
+
 # 2 – Initialize the game
 pygame.init()
 width, height = 640, 480
@@ -30,7 +35,7 @@ player = pygame.image.load("img/main_character.png")
 bg = pygame.image.load("img/bg.png")
 arrow = [pygame.image.load("img/bullet.png"), pygame.image.load("img/bullet2.png"), pygame.image.load("img/bullet3.png")]
 goodman = pygame.image.load("img/goodman.png")
-badman = [pygame.image.load("img/badman.png"), pygame.image.load("img/badman2.png"), pygame.image.load("img/badman3.png"), goodman]
+badman = [pygame.image.load("img/badman.png"), pygame.image.load("img/badman2.png"), pygame.image.load("img/badman3.png"), pygame.image.load("img/goodman.png")]
 gameover = pygame.image.load("img/gameover.png")
 
 start_flag = 1
@@ -54,21 +59,21 @@ while start_flag:
     # 6-1 - Draw arrows
     index = 0
     for bullet in arrows:
-        screen.blit(arrow[bullet[2]], bullet)
+        screen.blit(arrow[bullet.type], bullet.pos)
         if time_change:
-            arrows[index][0] += 0.5
-        if bullet[0] > 640:
+            arrows[index].pos[0] += 0.5
+        if bullet.pos[0] > 640:
             arrows.pop(index)
         index += 1
     
     # 6-2 - Draw badmans
     index = 0
     for monster in badmans:
-        screen.blit(badman[monster[2]], monster)
+        screen.blit(badman[monster.type], monster.pos)
         if time_change:
-            badmans[index][0] -= 0.5 * monster[2]
-        if monster[0] <= 0 :
-            if monster[2] < 3:
+            badmans[index].pos[0] -= 0.5 * monster.type
+        if monster.pos[0] <= 0 :
+            if monster.type < 3:
                 hp -= 1
             badmans.pop(index)
         index += 1
@@ -76,7 +81,7 @@ while start_flag:
     # 6-2-1 - Make badman
     if(time_now - badman_make_time > 5):
       badman_make_time = time_now
-      badmans.append([640, random.randint(0, 380), random.randint(0, level)])
+      badmans.append(cell([640, random.randint(0, 380)], random.randint(0, level)))
     
     # 6-3 - Draw Score
     pygame.font.init()
@@ -92,13 +97,13 @@ while start_flag:
     for bullet in arrows:
         index_monster = 0
         for monster in badmans:
-            if (monster[0] - bullet[0]) > -3 and (monster[0] - bullet[0]) < 0 and (monster[1] - bullet[1]) > -100 and (monster[1] - bullet[1]) <= 0:
-                if monster[2] == bullet[2]:
+            if (monster.pos[0] - bullet.pos[0]) > -3 and (monster.pos[0] - bullet.pos[0]) < 0 and (monster.pos[1] - bullet.pos[1]) > -100 and (monster.pos[1] - bullet.pos[1]) <= 0:
+                if monster.type == bullet.type:
                     arrows.pop(index_bullet)
                     badmans.pop(index_monster)
-                    if monster[2] < 3:
+                    if monster.type < 3:
                         acc[0] += 1
-                if monster[2] == 3:
+                if monster.type == 3:
                     arrows.pop(index_bullet)
                     badmans.pop(index_monster)
                     acc[0] -= 10
@@ -122,8 +127,10 @@ while start_flag:
             elif event.key == K_d:
                 keys[3] = True
             if event.key == K_z:
-                acc[1] += 1
-                arrows.append([playerpos[0] + 130, playerpos[1] + 86])
+                keys[4] = True
+                #acc[1] += 1
+                #arrows.append(cell([playerpos[0] + 130, playerpos[1] + 86], arrow_select))
+                
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
                 keys[0] = False
@@ -133,9 +140,12 @@ while start_flag:
                 keys[2] = False
             elif event.key == pygame.K_d:
                 keys[3] = False
+            elif event.key == pygame.K_z:
+                keys[4] = False
     '''
     # 8 - Read Button
-    button = lib.Read(1)
+    #button = lib.Read(1)
+    button = 0
     keys[0] = button & 16    # up
     keys[1] = button & 4     # left
     keys[2] = button & 8     # down
@@ -146,6 +156,8 @@ while start_flag:
     switch = lib.Read(0)
     level = switch & 3    # 2's LSB
     arrow_select = (switch & 0xC0) >> 6 # 2's MSB
+    if arrow_select == 3:
+        arrow_select = 0
 
     # 9 - Move Player
     if keys[0]:
@@ -158,7 +170,7 @@ while start_flag:
         playerpos[0] += 5
     if keys[4]:
         acc[1] += 1
-        arrows.append([playerpos[0] + 130, playerpos[1] + 86, arrow_select])
+        arrows.append(cell([playerpos[0] + 130, playerpos[1] + 86], arrow_select))
     
     if hp <= 0:
         start_flag = 0
