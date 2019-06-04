@@ -71,7 +71,7 @@ while start_flag:
     for monster in badmans:
         screen.blit(badman[monster.type], monster.pos)
         if time_change:
-            badmans[index].pos[0] -= 0.5 * monster.type
+            badmans[index].pos[0] -= 0.5 * (monster.type + 1)
         if monster.pos[0] <= 0 :
             if monster.type < 3:
                 hp -= 1
@@ -144,8 +144,7 @@ while start_flag:
                 keys[4] = False
     '''
     # 8 - Read Button
-    #button = lib.Read(1)
-    button = 0
+    button = lib.Read(1)
     keys[0] = button & 16    # up
     keys[1] = button & 4     # left
     keys[2] = button & 8     # down
