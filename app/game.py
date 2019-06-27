@@ -3,7 +3,6 @@ import pygame
 from pygame.locals import *
 import time
 import random
-from ctypes import *
 
 class cell:
     def __init__(self, pos, type):
@@ -19,11 +18,9 @@ playerpos = [0, 0]
 acc = [0, 0]
 arrows = []
 badmans = []
-hp = 8
-level = 0;
-arrow_select = 0;
-lib = CDLL("./libmygpio.so")
-lib.init()
+hp = 10
+level = 0
+arrow_select = 0
 
 # Time status
 time_last = (time.time())
@@ -47,7 +44,6 @@ while start_flag:
         time_change = True
     else:
         time_change = False
-    lib.Write((0xff >> (8 - hp)), 0)
 
     # 5 – Clear the screen before drawing it again
     screen.fill(0)
@@ -86,9 +82,9 @@ while start_flag:
     # 6-3 - Draw Score
     pygame.font.init()
     font = pygame.font.Font(None, 24)
-    text = font.render("Score: "+str(acc[0]), True, (255, 255, 0),)
+    text = font.render("Score: "+str(acc[0])+"    HP: "+str(hp)+"    Level: "+str(level), True, (255, 255, 0),)
     textRect = text.get_rect()
-    textRect.centerx = 50
+    textRect.centerx = 110
     textRect.centery = 24
     screen.blit(text, textRect)
     
@@ -114,49 +110,62 @@ while start_flag:
     pygame.display.flip()
 
     # 8 - loop through the events
-    '''
     for event in pygame.event.get():
         # check if the event is the X button 
+        if event.type == pygame.QUIT:
+            # if it is quit the game
+            pygame.quit()
+            exit(0)
         if event.type == pygame.KEYDOWN:
-            if event.key == K_w:
+            if event.key == K_UP:
                 keys[0] = True
-            elif event.key == K_a:
+            elif event.key == K_LEFT:
                 keys[1] = True
-            elif event.key == K_s:
+            elif event.key == K_DOWN:
                 keys[2] = True
-            elif event.key == K_d:
+            elif event.key == K_RIGHT:
                 keys[3] = True
             if event.key == K_z:
                 keys[4] = True
-                #acc[1] += 1
-                #arrows.append(cell([playerpos[0] + 130, playerpos[1] + 86], arrow_select))
+                arrow_select = 0
+            elif event.key == pygame.K_x:
+                keys[4] = True
+                arrow_select = 1
+            elif event.key == pygame.K_c:
+                keys[4] = True
+                arrow_select =2
+            if event.key == pygame.K_1:
+                level = 0
+            elif event.key == pygame.K_2:
+                level = 1
+            elif event.key == pygame.K_3:
+                level = 2
+            elif event.key == pygame.K_4:
+                level = 3
                 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_w:
+            if event.key == pygame.K_UP:
                 keys[0] = False
-            elif event.key == pygame.K_a:
+            elif event.key == pygame.K_LEFT:
                 keys[1] = False
-            elif event.key == pygame.K_s:
+            elif event.key == pygame.K_DOWN:
                 keys[2] = False
-            elif event.key == pygame.K_d:
+            elif event.key == pygame.K_RIGHT:
                 keys[3] = False
             elif event.key == pygame.K_z:
                 keys[4] = False
-    '''
-    # 8 - Read Button
-    button = lib.Read(1)
-    keys[0] = button & 16    # up
-    keys[1] = button & 4     # left
-    keys[2] = button & 8     # down
-    keys[3] = button & 2     # right
-    keys[4] = button & 1     # fire
-
-    # 8-1 - Select Level and arrow
-    switch = lib.Read(0)
-    level = switch & 3    # 2's LSB
-    arrow_select = (switch & 0xC0) >> 6 # 2's MSB
-    if arrow_select == 3:
-        arrow_select = 0
+            elif event.key == pygame.K_x:
+                keys[4] = False
+            elif event.key == pygame.K_c:
+                keys[4] = False
+            elif event.key == pygame.K_1:
+                level = 0
+            elif event.key == pygame.K_2:
+                level = 1
+            elif event.key == pygame.K_3:
+                level = 2
+            elif event.key == pygame.K_4:
+                level = 3
 
     # 9 - Move Player
     if keys[0]:
